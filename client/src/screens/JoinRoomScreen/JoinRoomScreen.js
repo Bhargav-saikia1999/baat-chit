@@ -1,25 +1,34 @@
 import React, { useEffect, useState } from "react";
 import styles from "./JoinRoomScreen.module.css";
-import { useSearchParams } from "react-router-dom";
+import { useSearchParams, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { setIsRoomHost } from "../../redux/actions";
+import { setIsRoomHost, setConnectOnlyWithAudio } from "../../redux/actions";
 
 const JoinRoomScreen = () => {
   const [searchParams] = useSearchParams();
   const dispatch = useDispatch();
-  const { isRoomHost } = useSelector((st) => st);
+  const navigate = useNavigate();
+  const { isRoomHost, connectOnlyWithAudio } = useSelector((st) => st);
 
   const [name, setName] = useState("");
   const [roomId, setRoomId] = useState("");
-  const [audioOnly, setAudioOnly] = useState(false);
+  const [errorMsg, setErrorMsg] = useState("");
 
   useEffect(() => {
     dispatch(setIsRoomHost(!!searchParams.get("host")));
   }, []);
 
+  const handleAudioOnly = (e) => {
+    dispatch(setConnectOnlyWithAudio(e.target.checked));
+  };
+
   return (
     <div className={styles.mainContainer}>
-      <div className={styles.contentPanel}>
+      <div
+        data-aos="fade-down"
+        data-aos-duration="400"
+        className={styles.contentPanel}
+      >
         <h1 className={styles.title}>{isRoomHost ? `Host` : `Join`} meeting</h1>
         <div className={styles.inputsContainer}>
           <input
@@ -42,11 +51,32 @@ const JoinRoomScreen = () => {
             <input
               type="checkbox"
               name="audioOnly"
-              checked={audioOnly}
-              onChange={(e) => setAudioOnly(e.target.checked)}
+              checked={connectOnlyWithAudio}
+              onChange={(e) => handleAudioOnly(e)}
             />
             <label htmlFor="audioOnly">Join with audio only</label>
           </div>
+        </div>
+        <div className={styles.errMsgContainer}>
+          {errorMsg !== "" && <p className={styles.errMsg}>{errorMsg}</p>}
+        </div>
+        <div className={styles.btnsContainer}>
+          <button
+            onClick={() => {
+              console.log("Joining....");
+            }}
+            className={styles.joinBtn}
+          >
+            Join
+          </button>
+          <button
+            onClick={() => {
+              navigate("/");
+            }}
+            className={styles.cancelBtn}
+          >
+            Cancel
+          </button>
         </div>
       </div>
     </div>

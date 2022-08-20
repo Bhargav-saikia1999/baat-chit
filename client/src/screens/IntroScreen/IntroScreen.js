@@ -15,7 +15,11 @@ const IntroScreen = () => {
 
   return (
     <div className={styles.mainContainer}>
-      <div className={styles.contentPanel}>
+      <div
+        data-aos="fade-down"
+        data-aos-duration="400"
+        className={styles.contentPanel}
+      >
         <h1 className={styles.logo}>Baat Chit</h1>
         <div className={styles.btnsContainer}>
           <ConnectingBtn

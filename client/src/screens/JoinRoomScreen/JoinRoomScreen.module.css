@@ -10,10 +10,10 @@
 
 .contentPanel {
   width: 400px;
-  height: 400px;
+  /* height: 400px; */
   background-color: var(--secondary-bg-color);
   border-radius: 12px;
-  padding: 5rem 2rem;
+  padding: 4rem 2rem;
   color: #fff;
 }
 
@@ -38,7 +38,7 @@
   color: #fff;
   padding: 0.25rem 0.5rem;
   border-radius: 8px;
-  border: 1px solid var(--fore-color);
+  border: 1.5px solid var(--fore-color);
 }
 
 .audioOnlyCheck {
@@ -51,7 +51,7 @@
 
 .audioOnlyCheck label {
   font-size: 12px;
-  margin-left: 4px;
+  margin-left: 8px;
   color: rgb(189, 189, 189);
 }
 
@@ -62,7 +62,7 @@
   -moz-appearance: none;
   -o-appearance: none;
   appearance: none;
-  border: 1px solid var(--fore-color);
+  border: 1.5px solid var(--fore-color);
   border-radius: 4px;
   outline: none;
   transition-duration: 0.3s;
@@ -80,6 +80,57 @@
   text-align: center;
   color: #fff;
   position: absolute;
-  left: 0.25rem;
+  left: 0.15rem;
   top: 0;
+}
+
+.errMsgContainer {
+  margin-top: 16px;
+}
+
+.errMsgContainer .errMsg {
+  color: var(--warning-color);
+  font-size: 13px;
+}
+
+.btnsContainer {
+  margin-top: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.joinBtn {
+  background-color: var(--fore-color);
+  border: none;
+  color: white;
+  font-size: 12px;
+  font-weight: 600;
+  width: 75px;
+  padding: 0.25rem 0.5rem;
+  margin-right: 12px;
+  border-radius: 8px;
+  transition: 0.3s;
+  cursor: pointer;
+}
+
+.joinBtn:hover {
+  background-color: #05bba0;
+}
+
+.cancelBtn {
+  background-color: #fff;
+  border: none;
+  color: black;
+  font-size: 12px;
+  width: 75px;
+  padding: 0.25rem 0.5rem;
+  margin-right: 16px;
+  border-radius: 8px;
+  transition: 0.3s;
+  cursor: pointer;
+}
+
+.cancelBtn:hover {
+  background-color: #e5e5e5;
 }

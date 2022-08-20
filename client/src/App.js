@@ -3,7 +3,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import JoinRoomScreen from "./screens/JoinRoomScreen/JoinRoomScreen";
 import RoomScreen from "./screens/RoomScreen/RoomScreen";
 import IntroScreen from "./screens/IntroScreen/IntroScreen";
-//logxasxs
+
 function App() {
   return (
     <BrowserRouter>
