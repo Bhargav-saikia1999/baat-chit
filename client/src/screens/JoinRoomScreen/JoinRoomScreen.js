@@ -2,7 +2,13 @@ import React, { useEffect, useState } from "react";
 import styles from "./JoinRoomScreen.module.css";
 import { useSearchParams, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { setIsRoomHost, setConnectOnlyWithAudio } from "../../redux/actions";
+import {
+  setIsRoomHost,
+  setConnectOnlyWithAudio,
+  setIdentity,
+  setRoomId,
+} from "../../redux/actions";
+import { getRoomExists } from "../../api";
 
 const JoinRoomScreen = () => {
   const [searchParams] = useSearchParams();
@@ -11,7 +17,7 @@ const JoinRoomScreen = () => {
   const { isRoomHost, connectOnlyWithAudio } = useSelector((st) => st);
 
   const [name, setName] = useState("");
-  const [roomId, setRoomId] = useState("");
+  const [roomId, setRoomID] = useState("");
   const [errorMsg, setErrorMsg] = useState("");
 
   useEffect(() => {
@@ -20,6 +26,37 @@ const JoinRoomScreen = () => {
 
   const handleAudioOnly = (e) => {
     dispatch(setConnectOnlyWithAudio(e.target.checked));
+  };
+
+  const handleJoinRoom = () => {
+    dispatch(setIdentity(name));
+    if (isRoomHost) createRoom();
+    else joinRoom();
+  };
+
+  const joinRoom = async () => {
+    try {
+      const { data } = await getRoomExists(roomId);
+      const { roomExists, full } = data;
+      if (roomExists) {
+        if (full) {
+          setErrorMsg("Meeting is full! Please try again later.");
+        } else {
+          //join a room
+          dispatch(setRoomId(roomId));
+          navigate("/room", { replace: true });
+        }
+      } else {
+        setErrorMsg("Meeting not found! Please check your meeting id");
+      }
+    } catch (error) {
+      console.log("Error: ", error);
+      setErrorMsg(error.message);
+    }
+  };
+
+  const createRoom = () => {
+    navigate("/room", { replace: true });
   };
 
   return (
@@ -44,7 +81,7 @@ const JoinRoomScreen = () => {
               value={roomId}
               placeholder="Enter the meeting id"
               type="text"
-              onChange={(e) => setRoomId(e.target.value)}
+              onChange={(e) => setRoomID(e.target.value)}
             />
           )}
           <div className={styles.audioOnlyCheck}>
@@ -61,12 +98,7 @@ const JoinRoomScreen = () => {
           {errorMsg !== "" && <p className={styles.errMsg}>{errorMsg}</p>}
         </div>
         <div className={styles.btnsContainer}>
-          <button
-            onClick={() => {
-              console.log("Joining....");
-            }}
-            className={styles.joinBtn}
-          >
+          <button onClick={handleJoinRoom} className={styles.joinBtn}>
             Join
           </button>
           <button
