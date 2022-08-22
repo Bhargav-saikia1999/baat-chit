@@ -35,24 +35,26 @@ const JoinRoomScreen = () => {
   };
 
   const joinRoom = async () => {
-    try {
-      const { data } = await getRoomExists(roomId);
-      const { roomExists, full } = data;
-      if (roomExists) {
-        if (full) {
-          setErrorMsg("Meeting is full! Please try again later.");
-        } else {
-          //join a room
-          dispatch(setRoomId(roomId));
-          navigate("/room", { replace: true });
-        }
-      } else {
-        setErrorMsg("Meeting not found! Please check your meeting id");
-      }
-    } catch (error) {
-      console.log("Error: ", error);
-      setErrorMsg(error.message);
-    }
+    dispatch(setRoomId(roomId));
+    navigate("/room", { replace: true });
+    // try {
+    //   const { data } = await getRoomExists(roomId);
+    //   const { roomExists, full } = data;
+    //   if (roomExists) {
+    //     if (full) {
+    //       setErrorMsg("Meeting is full! Please try again later.");
+    //     } else {
+    //       //join a room
+    //       dispatch(setRoomId(roomId));
+    //       navigate("/room", { replace: true });
+    //     }
+    //   } else {
+    //     setErrorMsg("Meeting not found! Please check your meeting id");
+    //   }
+    // } catch (error) {
+    //   console.log("Error: ", error);
+    //   setErrorMsg(error.message);
+    // }
   };
 
   const createRoom = () => {
