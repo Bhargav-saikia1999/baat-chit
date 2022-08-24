@@ -9,6 +9,7 @@ import {
   setRoomId,
 } from "../../redux/actions";
 import { getRoomExists } from "../../api";
+import { motion } from "framer-motion";
 
 const JoinRoomScreen = () => {
   const [searchParams] = useSearchParams();
@@ -63,50 +64,60 @@ const JoinRoomScreen = () => {
 
   return (
     <div className={styles.mainContainer}>
-      <div className={styles.contentPanel}>
-        <h1 className={styles.title}>{isRoomHost ? `Host` : `Join`} meeting</h1>
-        <div className={styles.inputsContainer}>
-          <input
-            className={styles.textField}
-            value={name}
-            placeholder="Enter your name"
-            type="text"
-            onChange={(e) => setName(e.target.value)}
-          />
-          {!isRoomHost && (
+      <div className={styles.banner}>
+        <h1 className={styles.logo}>Baat Chit</h1>
+        <p className={styles.slogan}>
+          Stay connected with all your friends and family with Baat Chit.
+        </p>
+      </div>
+      <div className={styles.contentPanelConatiner}>
+        <div className={styles.contentPanel}>
+          <h1 className={styles.title}>
+            {isRoomHost ? `Host` : `Join`} meeting
+          </h1>
+          <div className={styles.inputsContainer}>
             <input
               className={styles.textField}
-              value={roomId}
-              placeholder="Enter the meeting id"
+              value={name}
+              placeholder="Enter your name"
               type="text"
-              onChange={(e) => setRoomID(e.target.value)}
+              onChange={(e) => setName(e.target.value)}
             />
-          )}
-          <div className={styles.audioOnlyCheck}>
-            <input
-              type="checkbox"
-              name="audioOnly"
-              checked={connectOnlyWithAudio}
-              onChange={(e) => handleAudioOnly(e)}
-            />
-            <label htmlFor="audioOnly">Join with audio only</label>
+            {!isRoomHost && (
+              <input
+                className={styles.textField}
+                value={roomId}
+                placeholder="Enter the meeting id"
+                type="text"
+                onChange={(e) => setRoomID(e.target.value)}
+              />
+            )}
+            <div className={styles.audioOnlyCheck}>
+              <input
+                type="checkbox"
+                name="audioOnly"
+                checked={connectOnlyWithAudio}
+                onChange={(e) => handleAudioOnly(e)}
+              />
+              <label htmlFor="audioOnly">Join with audio only</label>
+            </div>
           </div>
-        </div>
-        <div className={styles.errMsgContainer}>
-          {errorMsg !== "" && <p className={styles.errMsg}>{errorMsg}</p>}
-        </div>
-        <div className={styles.btnsContainer}>
-          <button onClick={handleJoinRoom} className={styles.joinBtn}>
-            Join
-          </button>
-          <button
-            onClick={() => {
-              navigate("/");
-            }}
-            className={styles.cancelBtn}
-          >
-            Cancel
-          </button>
+          <div className={styles.errMsgContainer}>
+            {errorMsg !== "" && <p className={styles.errMsg}>{errorMsg}</p>}
+          </div>
+          <div className={styles.btnsContainer}>
+            <button onClick={handleJoinRoom} className={styles.joinBtn}>
+              Join
+            </button>
+            <button
+              onClick={() => {
+                navigate("/");
+              }}
+              className={styles.cancelBtn}
+            >
+              Cancel
+            </button>
+          </div>
         </div>
       </div>
     </div>

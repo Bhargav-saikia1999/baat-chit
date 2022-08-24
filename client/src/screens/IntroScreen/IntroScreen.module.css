@@ -9,9 +9,9 @@
 }
 
 .contentPanel {
-  width: 600px;
-  height: 400px;
-  background-color: var(--secondary-bg-color);
+  /* width: 500px; */
+  height: 350px;
+  /* background-color: var(--secondary-bg-color); */
   border-radius: 12px;
   display: flex;
   flex-direction: column;
@@ -23,7 +23,7 @@
   font-family: "Fredoka One", cursive;
   color: var(--fore-color);
   text-shadow: 1px 1px #fff;
-  font-size: 48px;
+  font-size: 54px;
 }
 
 .btnsContainer {

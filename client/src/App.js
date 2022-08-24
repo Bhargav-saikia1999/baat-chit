@@ -1,17 +1,27 @@
 import React from "react";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import JoinRoomScreen from "./screens/JoinRoomScreen/JoinRoomScreen";
 import RoomScreen from "./screens/RoomScreen/RoomScreen";
 import IntroScreen from "./screens/IntroScreen/IntroScreen";
+import { AnimatePresence } from "framer-motion";
 
-function App() {
+const MyRoutes = () => {
+  const location = useLocation();
   return (
-    <BrowserRouter>
-      <Routes>
+    <AnimatePresence initial={false} exitBeforeEnter>
+      <Routes location={location} key={location.pathname}>
         <Route path="/join-room" element={<JoinRoomScreen />} />
         <Route path="/room" element={<RoomScreen />} />
         <Route path="/" element={<IntroScreen />} />
       </Routes>
+    </AnimatePresence>
+  );
+};
+
+function App() {
+  return (
+    <BrowserRouter>
+      <MyRoutes />
     </BrowserRouter>
   );
 }

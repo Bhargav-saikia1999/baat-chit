@@ -2,6 +2,9 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import ConnectingBtn from "../../components/buttons/ConnectingBtn";
 import styles from "./IntroScreen.module.css";
+import { motion } from "framer-motion";
+
+const transition = { duration: 1.4, ease: [0.6, 0.01, -0.05, 0.9] };
 
 const IntroScreen = () => {
   const navigate = useNavigate();
@@ -14,9 +17,39 @@ const IntroScreen = () => {
   };
 
   return (
-    <div className={styles.mainContainer}>
-      <div className={styles.contentPanel}>
-        <h1 className={styles.logo}>Baat Chit</h1>
+    <motion.div
+      initial="initial"
+      animate="animate"
+      exit="exit"
+      className={styles.mainContainer}
+    >
+      <motion.div
+        initial={{ backgroundColor: "#161c21" }}
+        animate={{
+          backgroundColor: "#1f272f",
+          width: "525px",
+          transition: {
+            delay: 0.2,
+            duration: 0.4,
+            ease: [0.6, 0.01, -0.05, 0.9],
+          },
+        }}
+        className={styles.contentPanel}
+      >
+        <motion.h1
+          initial={{ x: "-20vw", textShadow: "2px 2px #fff" }}
+          animate={{
+            x: 0,
+            textShadow: "1px 1px #fff",
+            transition: {
+              ease: [0.6, 0.01, -0.05, 0.9],
+              duration: 0.3,
+            },
+          }}
+          className={styles.logo}
+        >
+          Baat Chit
+        </motion.h1>
         <div className={styles.btnsContainer}>
           <ConnectingBtn
             btnText="Join a meeting"
@@ -30,8 +63,8 @@ const IntroScreen = () => {
             btnClassName={styles.hostMeetBtn}
           />
         </div>
-      </div>
-    </div>
+      </motion.div>
+    </motion.div>
   );
 };
 

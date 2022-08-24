@@ -8,6 +8,38 @@
   background-image: url("../../assets/images/bg-texture.png");
 }
 
+.banner {
+  width: 40%;
+  height: 100vh;
+  padding: 2rem;
+  background-color: var(--secondary-bg-color);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.banner .logo {
+  font-family: "Fredoka One", cursive;
+  color: var(--fore-color);
+  text-shadow: 1px 1px #fff;
+  font-size: 54px;
+}
+
+.banner .slogan {
+  color: rgb(207, 207, 207);
+  margin-top: 1.5rem;
+  padding: 0 3rem;
+  text-align: center;
+}
+
+.contentPanelConatiner {
+  width: 60%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .contentPanel {
   width: 400px;
   /* height: 400px; */
