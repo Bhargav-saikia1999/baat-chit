@@ -4,6 +4,7 @@ import SidePanel from "../../components/room/sidepanel/SidePanel";
 import TitleBar from "../../components/room/title-bar/TitleBar";
 import { useSelector } from "react-redux";
 import InfoBar from "../../components/room/info-bar/InfoBar";
+import RoomBtnPanel from "../../components/buttons/room-btn-panel/RoomBtnPanel";
 
 const RoomScreen = () => {
   const [openSidePanel, setOpenSidePanel] = useState(true);
@@ -22,6 +23,7 @@ const RoomScreen = () => {
           setOpenSidePanel={setOpenSidePanel}
         />
         <InfoBar />
+        <RoomBtnPanel />
       </div>
       {openSidePanel && (
         <div data-aos="fade-right" className={styles.sidePanelContainer}>
