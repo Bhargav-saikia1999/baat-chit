@@ -63,14 +63,66 @@ const JoinRoomScreen = () => {
   };
 
   return (
-    <div className={styles.mainContainer}>
-      <div className={styles.banner}>
-        <h1 className={styles.logo}>Baat Chit</h1>
-        <p className={styles.slogan}>
+    <motion.div
+      initial="initial"
+      animate="animate"
+      exit="exit"
+      className={styles.mainContainer}
+    >
+      <motion.div
+        initial={{ backgroundColor: "rgba(0,0,0,0)" }}
+        animate={{
+          backgroundColor: "#1f272f",
+          transition: {
+            delay: 0.1,
+            duration: 0.4,
+            ease: [0.6, 0.01, -0.05, 0.9],
+          },
+        }}
+        className={styles.banner}
+      >
+        <motion.h1
+          initial={{ x: "30vw", y: -12 }}
+          animate={{
+            x: 0,
+            y: 0,
+            width: "auto",
+            transition: {
+              duration: 0.3,
+              ease: [0.6, 0.01, -0.05, 0.9],
+            },
+          }}
+          className={styles.logo}
+        >
+          Baat Chit
+        </motion.h1>
+        <motion.p
+          initial={{ opacity: 0 }}
+          animate={{
+            opacity: 1,
+            transition: {
+              delay: 0.25,
+              duration: 0.4,
+              ease: [0.6, 0.01, -0.05, 0.9],
+            },
+          }}
+          className={styles.slogan}
+        >
           Stay connected with all your friends and family with Baat Chit.
-        </p>
-      </div>
-      <div className={styles.contentPanelConatiner}>
+        </motion.p>
+      </motion.div>
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{
+          opacity: 1,
+          transition: {
+            delay: 0.35,
+            duration: 0.4,
+            ease: [0.6, 0.01, -0.05, 0.9],
+          },
+        }}
+        className={styles.contentPanelConatiner}
+      >
         <div className={styles.contentPanel}>
           <h1 className={styles.title}>
             {isRoomHost ? `Host` : `Join`} meeting
@@ -119,8 +171,8 @@ const JoinRoomScreen = () => {
             </button>
           </div>
         </div>
-      </div>
-    </div>
+      </motion.div>
+    </motion.div>
   );
 };
 
