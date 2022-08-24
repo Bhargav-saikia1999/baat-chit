@@ -63,11 +63,7 @@ const JoinRoomScreen = () => {
 
   return (
     <div className={styles.mainContainer}>
-      <div
-        data-aos="fade-down"
-        data-aos-duration="400"
-        className={styles.contentPanel}
-      >
+      <div className={styles.contentPanel}>
         <h1 className={styles.title}>{isRoomHost ? `Host` : `Join`} meeting</h1>
         <div className={styles.inputsContainer}>
           <input

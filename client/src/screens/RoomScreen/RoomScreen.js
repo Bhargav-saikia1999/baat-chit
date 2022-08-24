@@ -13,7 +13,7 @@ const RoomScreen = () => {
   return (
     <div className={styles.mainContainer}>
       <div className={styles.mainPanelContainer}>
-        <div data-aos="fade-down" className={styles.meetIdContainer}>
+        <div className={styles.meetIdContainer}>
           <p className={styles.meetId}>
             Meet ID: <b>{roomId ? roomId : " null"}</b>
           </p>
@@ -26,7 +26,7 @@ const RoomScreen = () => {
         <RoomBtnPanel />
       </div>
       {openSidePanel && (
-        <div data-aos="fade-right" className={styles.sidePanelContainer}>
+        <div className={styles.sidePanelContainer}>
           <SidePanel />
         </div>
       )}

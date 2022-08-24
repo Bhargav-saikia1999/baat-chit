@@ -5,10 +5,7 @@ import { store } from "./redux/store";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import "./index.css";
-import AOS from "aos";
-import "aos/dist/aos.css";
 
-AOS.init();
 const container = document.getElementById("root");
 const root = createRoot(container);
 
