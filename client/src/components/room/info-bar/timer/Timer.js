@@ -17,7 +17,7 @@ const Timer = ({ meetId }) => {
     return () => {
       clearInterval(timerInterval);
     };
-  }, []);
+  }, [meetId]);
 
   return (
     <div className={styles.timer}>

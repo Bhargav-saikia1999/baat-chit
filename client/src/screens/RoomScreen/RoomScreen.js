@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styles from "./RoomScreen.module.css";
 import SidePanel from "../../components/room/sidepanel/SidePanel";
 import TitleBar from "../../components/room/title-bar/TitleBar";
@@ -6,12 +6,21 @@ import { useSelector } from "react-redux";
 import InfoBar from "../../components/room/info-bar/InfoBar";
 import RoomBtnPanel from "../../components/buttons/room-btn-panel/RoomBtnPanel";
 import { motion, AnimatePresence } from "framer-motion";
+import * as webRTCHandler from "../../utils/webRTCHandler";
 
 const RoomScreen = () => {
   const [openSidePanel, setOpenSidePanel] = useState(true);
-  const { roomId } = useSelector((st) => st);
+  const { roomId, isRoomHost, identity } = useSelector((st) => st);
 
   const cbzArr = [0.39, 0.32, 0.03, 0.99];
+
+  useEffect(() => {
+    webRTCHandler.getLocalPreviewAndInitRoomConnection(
+      isRoomHost,
+      identity,
+      roomId
+    );
+  }, []);
 
   const mainPanelVariants = {
     initial: {

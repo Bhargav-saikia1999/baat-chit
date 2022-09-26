@@ -13,7 +13,7 @@ const InfoBar = () => {
       <div className={styles.participants}>
         <div className={styles.noOfParticipants}>
           <img src={grp} alt="group" />
-          <span>{participants.length + 1}</span>
+          <span>{participants.length}</span>
         </div>
         <div className={styles.inviteParticipants}>
           <img src={add} alt="" />
