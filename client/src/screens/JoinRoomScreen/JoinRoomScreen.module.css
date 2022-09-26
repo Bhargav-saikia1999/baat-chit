@@ -83,6 +83,11 @@
   border: 1.5px solid var(--fore-color);
 }
 
+.textField:active,
+.textField:focus {
+  border-color: var(--fore-bright-color);
+}
+
 .audioOnlyCheck {
   margin: 0.5rem 0;
   display: flex;

@@ -5,6 +5,7 @@
   background-color: var(--primary-bg-color);
   background-image: url("../../assets/images/bg-texture.png");
   display: flex;
+  overflow: hidden;
 }
 
 .meetIdContainer {
@@ -30,12 +31,10 @@
   position: relative;
   height: 100%;
   max-height: 100vh;
-  flex-grow: 1;
   padding: 2rem;
 }
 
 .sidePanelContainer {
-  width: 300px;
   height: 100%;
   padding: 1rem 1rem 1rem 0;
 }

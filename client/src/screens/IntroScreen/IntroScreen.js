@@ -4,8 +4,6 @@ import ConnectingBtn from "../../components/buttons/ConnectingBtn";
 import styles from "./IntroScreen.module.css";
 import { motion } from "framer-motion";
 
-const transition = { duration: 1.4, ease: [0.6, 0.01, -0.05, 0.9] };
-
 const IntroScreen = () => {
   const navigate = useNavigate();
 
@@ -42,8 +40,8 @@ const IntroScreen = () => {
             x: 0,
             textShadow: "1px 1px #fff",
             transition: {
-              ease: [0.6, 0.01, -0.05, 0.9],
-              duration: 0.3,
+              ease: [0.42, 0.37, 0.63, 1.19],
+              duration: 0.4,
             },
           }}
           className={styles.logo}
@@ -55,12 +53,14 @@ const IntroScreen = () => {
             btnText="Join a meeting"
             clickHandler={joinMeetHandler}
             btnClassName={styles.joinMeetBtn}
+            nthChild={1}
           />
           <ConnectingBtn
             isCreateRoom={true}
             btnText="Host a meeting"
             clickHandler={hostMeetHandler}
             btnClassName={styles.hostMeetBtn}
+            nthChild={2}
           />
         </div>
       </motion.div>

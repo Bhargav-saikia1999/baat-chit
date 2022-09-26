@@ -87,9 +87,13 @@ const JoinRoomScreen = () => {
             x: 0,
             y: 0,
             width: "auto",
+            scale: 1.1,
+            textShadow: "2px 2px #fff",
             transition: {
-              duration: 0.3,
-              ease: [0.6, 0.01, -0.05, 0.9],
+              duration: 0.4,
+              //ease: [0.6, 0.01, -0.05, 0.9],
+              //ease: [1, 0.7, 1, 0.86],
+              ease: [0.15, 0.72, 0.76, 0.96],
             },
           }}
           className={styles.logo}
@@ -118,7 +122,8 @@ const JoinRoomScreen = () => {
           transition: {
             delay: 0.35,
             duration: 0.4,
-            ease: [0.6, 0.01, -0.05, 0.9],
+            //ease: [0.91, 0.88, 0.92, 0.92],
+            ease: "linear",
           },
         }}
         className={styles.contentPanelConatiner}

@@ -8,7 +8,7 @@ import { AnimatePresence } from "framer-motion";
 const MyRoutes = () => {
   const location = useLocation();
   return (
-    <AnimatePresence initial={false} exitBeforeEnter>
+    <AnimatePresence initial={false} mode="wait">
       <Routes location={location} key={location.pathname}>
         <Route path="/join-room" element={<JoinRoomScreen />} />
         <Route path="/room" element={<RoomScreen />} />

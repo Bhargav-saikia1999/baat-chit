@@ -6,6 +6,7 @@ const ConnectingBtn = ({
   clickHandler = () => {},
   isCreateRoom = false,
   btnClassName,
+  nthChild = 1,
 }) => {
   return (
     <motion.button
@@ -14,7 +15,7 @@ const ConnectingBtn = ({
         opacity: 1,
         y: 0,
         transition: {
-          delay: 0.3,
+          delay: nthChild === 1 ? 0.3 : 0.4,
           ease: [0.17, 0.67, 0.83, 0.67],
           duration: 0.1,
         },
