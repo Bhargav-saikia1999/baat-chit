@@ -55,3 +55,5 @@ const showLocalVideoPreview = (stream) => {
   //   //   }
   //   videosContainer.appendChild(videoContainer);
 };
+
+export const prepareNewPeerConnection = (connUserSocketId, isInitiator) => {};

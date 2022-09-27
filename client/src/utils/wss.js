@@ -1,5 +1,6 @@
 import io from "socket.io-client";
 import store from "../redux/store";
+import * as webRTCHandler from "./webRTCHandler";
 import { setParticipants, setRoomId, setSocketId } from "../redux/actions";
 
 const SERVER = "http://localhost:5002";
@@ -21,6 +22,12 @@ export const connectWithSocketIOServer = () => {
 
   socket.on("room-update", ({ connectedUsers }) => {
     store.dispatch(setParticipants(connectedUsers));
+  });
+
+  socket.on("conn-prepare", ({ connUserSocketId }) => {
+    webRTCHandler.prepareNewPeerConnection(connUserSocketId, false);
+
+    socket.emit("conn-init", { connUserSocketId: connUserSocketId });
   });
 };
 
