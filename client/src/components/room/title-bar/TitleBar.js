@@ -7,7 +7,7 @@ import { motion } from "framer-motion";
 const TitleBar = ({ openSidePanel, setOpenSidePanel }) => {
   return (
     <div className={styles.titleBar}>
-      <h1 className={styles.title}>Meeting Title</h1>
+      {/* <h1 className={styles.title}>Meeting Title</h1> */}
       <motion.img
         initial={{ opacity: 0 }}
         animate={{

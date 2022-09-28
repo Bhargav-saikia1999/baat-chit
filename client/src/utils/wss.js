@@ -3,7 +3,7 @@ import store from "../redux/store";
 import * as webRTCHandler from "./webRTCHandler";
 import { setParticipants, setRoomId, setSocketId } from "../redux/actions";
 
-const SERVER = "http://localhost:5002";
+const SERVER = `${window.location.hostname}:5002`;
 
 let socket = null;
 
@@ -29,6 +29,15 @@ export const connectWithSocketIOServer = () => {
 
     socket.emit("conn-init", { connUserSocketId: connUserSocketId });
   });
+
+  socket.on("conn-signal", (data) => {
+    webRTCHandler.handleSignalingData(data);
+  });
+
+  socket.on("conn-init", (data) => {
+    const { connUserSocketId } = data;
+    webRTCHandler.prepareNewPeerConnection(connUserSocketId, true);
+  });
 };
 
 export const createNewRoom = (identity, onlyAudio = false) => {
@@ -50,4 +59,8 @@ export const joinRoom = (identity, roomId, onlyAudio = false) => {
   };
 
   socket.emit("join-room", data);
+};
+
+export const signalPeerData = (data) => {
+  socket.emit("conn-signal", data);
 };

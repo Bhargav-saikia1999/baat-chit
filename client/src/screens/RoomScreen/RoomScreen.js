@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import styles from "./RoomScreen.module.css";
+import { useNavigate } from "react-router-dom";
 import SidePanel from "../../components/room/sidepanel/SidePanel";
 import TitleBar from "../../components/room/title-bar/TitleBar";
 import { useSelector } from "react-redux";
@@ -11,6 +12,7 @@ import * as webRTCHandler from "../../utils/webRTCHandler";
 const RoomScreen = () => {
   const [openSidePanel, setOpenSidePanel] = useState(true);
   const { roomId, isRoomHost, identity } = useSelector((st) => st);
+  const navigate = useNavigate();
 
   const cbzArr = [0.39, 0.32, 0.03, 0.99];
 
@@ -20,7 +22,16 @@ const RoomScreen = () => {
       identity,
       roomId
     );
+    // window.addEventListener("beforeunload", handleUnload);
+    // return () => {
+    //   window.removeEventListener("beforeunload", handleUnload);
+    // };
   }, []);
+
+  // const handleUnload = (e) => {
+  //   console.log("adaksxk");
+  //   navigate("/", { replace: true });
+  // };
 
   const mainPanelVariants = {
     initial: {
@@ -83,6 +94,7 @@ const RoomScreen = () => {
           setOpenSidePanel={setOpenSidePanel}
         />
         <InfoBar />
+        <div id="videos_container"></div>
         <RoomBtnPanel />
       </motion.div>
       <AnimatePresence>
