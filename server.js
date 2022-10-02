@@ -90,37 +90,43 @@ const createNewRoomHandler = (data, socket) => {
 const joinRoomHandler = (data, socket) => {
   const { identity, roomId } = data;
 
-  const newUser = {
-    identity,
-    id: uuidv4(),
-    socketId: socket.id,
-    roomId,
-    //onlyAudio,
-  };
+  if (roomId !== null) {
+    const newUser = {
+      identity,
+      id: uuidv4(),
+      socketId: socket.id,
+      roomId,
+      //onlyAudio,
+    };
 
-  // join room as user which just is trying to join room passing room id
-  const room = rooms.find((room) => room.id === roomId);
-  if (room) {
-    room.connectedUsers = [...room.connectedUsers, newUser];
+    // join room as user which just is trying to join room passing room id
+    const room = rooms.find((room) => room.id === roomId);
+    if (room) {
+      room.connectedUsers = [...room.connectedUsers, newUser];
 
-    // join socket.io room
-    socket.join(roomId);
+      // join socket.io room
+      socket.join(roomId);
 
-    // add new user to connected users array
-    connectedUsers = [...connectedUsers, newUser];
+      // add new user to connected users array
+      connectedUsers = [...connectedUsers, newUser];
 
-    // emit to all users which are already in this room to prepare peer connection
-    room.connectedUsers.forEach((user) => {
-      if (user.socketId !== socket.id) {
-        const data = {
-          connUserSocketId: socket.id,
-        };
+      // emit to all users which are already in this room to prepare peer connection
+      room.connectedUsers.forEach((user) => {
+        if (user.socketId !== socket.id) {
+          const data = {
+            connUserSocketId: socket.id,
+          };
 
-        io.to(user.socketId).emit("conn-prepare", data);
-      }
-    });
+          io.to(user.socketId).emit("conn-prepare", data);
+        }
+      });
 
-    io.to(roomId).emit("room-update", { connectedUsers: room.connectedUsers });
+      io.to(roomId).emit("room-update", {
+        connectedUsers: room.connectedUsers,
+      });
+    }
+  } else {
+    socket.emit("room-id", { roomId: "not-available" });
   }
 };
 
@@ -147,6 +153,7 @@ const disconnectHandler = (socket) => {
       (user) => user.socketId !== socket.id
     );
     socket.leave(user.roomId);
+    io.to(room.id).emit("user-disconnected", { socketId: socket.id });
     if (room.connectedUsers.length > 0) {
       io.to(room.id).emit("room-update", {
         connectedUsers: room.connectedUsers,

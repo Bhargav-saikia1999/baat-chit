@@ -48,6 +48,26 @@ body {
   top: 0%;
   left: 0%;
 }
+
+.localScreenSharePreview {
+  position: absolute;
+  width: 12vw;
+  height: 18vh;
+  background-color: black;
+  border-radius: 8px;
+  border: 2px solid blue;
+  left: 5%;
+  bottom: 5%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.localScreenSharePreview video {
+  height: 100%;
+  width: 100%;
+  object-fit: contain;
+}
 /*
 .video_track_container:first-child:nth-last-child(2),
 .video_track_container:first-child:nth-last-child(2) ~ .video_track_container {

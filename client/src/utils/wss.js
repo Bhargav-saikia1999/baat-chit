@@ -1,7 +1,7 @@
 import io from "socket.io-client";
 import store from "../redux/store";
 import * as webRTCHandler from "./webRTCHandler";
-import { setParticipants, setRoomId, setSocketId } from "../redux/actions";
+import { setParticipants, setRoomId } from "../redux/actions";
 
 const SERVER = `${window.location.hostname}:5002`;
 
@@ -37,6 +37,10 @@ export const connectWithSocketIOServer = () => {
   socket.on("conn-init", (data) => {
     const { connUserSocketId } = data;
     webRTCHandler.prepareNewPeerConnection(connUserSocketId, true);
+  });
+
+  socket.on("user-disconnected", (data) => {
+    webRTCHandler.removePeerConnection(data);
   });
 };
 

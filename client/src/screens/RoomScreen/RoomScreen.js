@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import styles from "./RoomScreen.module.css";
-import { useNavigate } from "react-router-dom";
 import SidePanel from "../../components/room/sidepanel/SidePanel";
 import TitleBar from "../../components/room/title-bar/TitleBar";
 import { useSelector } from "react-redux";
@@ -8,11 +7,12 @@ import InfoBar from "../../components/room/info-bar/InfoBar";
 import RoomBtnPanel from "../../components/buttons/room-btn-panel/RoomBtnPanel";
 import { motion, AnimatePresence } from "framer-motion";
 import * as webRTCHandler from "../../utils/webRTCHandler";
+import { useIsFirstRender } from "../../hooks/useIsFirstRender";
 
 const RoomScreen = () => {
   const [openSidePanel, setOpenSidePanel] = useState(true);
   const { roomId, isRoomHost, identity } = useSelector((st) => st);
-  const navigate = useNavigate();
+  const isFirstRender = useIsFirstRender();
 
   const cbzArr = [0.39, 0.32, 0.03, 0.99];
 
@@ -22,16 +22,16 @@ const RoomScreen = () => {
       identity,
       roomId
     );
-    // window.addEventListener("beforeunload", handleUnload);
-    // return () => {
-    //   window.removeEventListener("beforeunload", handleUnload);
-    // };
   }, []);
 
-  // const handleUnload = (e) => {
-  //   console.log("adaksxk");
-  //   navigate("/", { replace: true });
-  // };
+  useEffect(() => {
+    if (!isFirstRender) {
+      if (roomId === "not-available") {
+        const siteUrl = window.location.origin;
+        window.location.href = siteUrl;
+      }
+    }
+  }, [roomId]);
 
   const mainPanelVariants = {
     initial: {

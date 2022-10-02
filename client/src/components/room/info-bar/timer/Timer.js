@@ -3,11 +3,11 @@ import styles from "../InfoBar.module.css";
 import { formatSeconds } from "../../../../utils/formatSeconds";
 
 const Timer = ({ meetId }) => {
-  const meetingTime = localStorage.getItem(`${meetId}-time`) || 0;
-  const [time, setTime] = useState(Number(meetingTime));
+  //const meetingTime = localStorage.getItem(`${meetId}-time`) || 0;
+  const [time, setTime] = useState(Number(0));
 
   useEffect(() => {
-    localStorage.setItem(`${meetId}-time`, time + 1);
+    localStorage.setItem(`${meetId}-time`, 0);
     const timerInterval = setInterval(() => {
       setTime((prevTime) => {
         localStorage.setItem(`${meetId}-time`, prevTime + 1);

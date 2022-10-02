@@ -41,24 +41,7 @@ export const getLocalPreviewAndInitRoomConnection = async (
     });
 };
 
-const showLocalVideoPreview = (stream) => {
-  const videosContainer = document.getElementById("videos_container");
-  videosContainer.classList.add("videos_container_styles");
-  const videoContainer = document.createElement("div");
-  videoContainer.classList.add("video_track_container");
-  const videoElement = document.createElement("video");
-  videoElement.autoplay = true;
-  videoElement.muted = true;
-  videoElement.srcObject = stream;
-  videoElement.onloadedmetadata = () => {
-    videoElement.play();
-  };
-  videoContainer.appendChild(videoElement);
-  //   if (store.getState().connectOnlyWithAudio) {
-  //     videoContainer.appendChild(getAudioOnlyLabel());
-  //   }
-  videosContainer.appendChild(videoContainer);
-};
+////////////////////////////  Peers' connection logic  ////////////////////////////
 
 let peers = {};
 let streams = [];
@@ -106,6 +89,49 @@ export const handleSignalingData = (data) => {
   peers[data.connUserSocketId].signal(data.signal);
 };
 
+export const removePeerConnection = (data) => {
+  const { socketId } = data;
+  const videoContainer = document.getElementById(socketId);
+  const videoEl = document.getElementById(`${socketId}-video`);
+
+  if (videoContainer && videoEl) {
+    const tracks = videoEl.srcObject.getTracks();
+
+    tracks.forEach((t) => t.stop());
+
+    videoEl.srcObject = null;
+    videoContainer.removeChild(videoEl);
+
+    videoContainer.parentNode.removeChild(videoContainer);
+
+    if (peers[socketId]) {
+      peers[socketId].destroy();
+    }
+    delete peers[socketId];
+  }
+};
+
+////////////////////////////  Video preview logic  ////////////////////////////
+
+const showLocalVideoPreview = (stream) => {
+  const videosContainer = document.getElementById("videos_container");
+  videosContainer.classList.add("videos_container_styles");
+  const videoContainer = document.createElement("div");
+  videoContainer.classList.add("video_track_container");
+  const videoElement = document.createElement("video");
+  videoElement.autoplay = true;
+  videoElement.muted = true;
+  videoElement.srcObject = stream;
+  videoElement.onloadedmetadata = () => {
+    videoElement.play();
+  };
+  videoContainer.appendChild(videoElement);
+  //   if (store.getState().connectOnlyWithAudio) {
+  //     videoContainer.appendChild(getAudioOnlyLabel());
+  //   }
+  videosContainer.appendChild(videoContainer);
+};
+
 const addStream = (stream, connUserSocketId) => {
   const videosContainer = document.getElementById("videos_container");
   const videoContainer = document.createElement("div");
@@ -131,4 +157,45 @@ const addStream = (stream, connUserSocketId) => {
 
   videoContainer.appendChild(videoElement);
   videosContainer.appendChild(videoContainer);
+};
+
+////////////////////////////  Room buttons' logics  ////////////////////////////
+
+export const toggleMic = (isMuted) => {
+  localStream.getAudioTracks()[0].enabled = isMuted ? true : false;
+};
+
+export const toggleCamera = (isDisabled) => {
+  localStream.getVideoTracks()[0].enabled = isDisabled ? true : false;
+};
+
+export const toggleScreenShare = (
+  isScreenShareActive,
+  screenShareStream = null
+) => {
+  if (isScreenShareActive) {
+    switchVideoTracks(localStream);
+  } else {
+    switchVideoTracks(screenShareStream);
+  }
+};
+
+export const switchVideoTracks = (stream) => {
+  for (let socket_id in peers) {
+    for (let index in peers[socket_id].streams[0].getTracks()) {
+      for (let index2 in stream.getTracks()) {
+        if (
+          peers[socket_id].streams[0].getTracks()[index].kind ===
+          stream.getTracks()[index2].kind
+        ) {
+          peers[socket_id].replaceTrack(
+            peers[socket_id].streams[0].getTracks()[index],
+            stream.getTracks()[index2],
+            peers[socket_id].streams[0]
+          );
+          break;
+        }
+      }
+    }
+  }
 };
